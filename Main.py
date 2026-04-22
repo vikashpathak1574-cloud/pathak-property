@@ -1,4 +1,5 @@
 import streamlit as st
+import urllib.parse
 
 # Page Config
 st.set_page_config(page_title="Pathak Property", layout="wide")
@@ -7,19 +8,8 @@ st.set_page_config(page_title="Pathak Property", layout="wide")
 st.title("🏠 Pathak Property")
 st.subheader("Buy | Sell | Rent Properties")
 
-# HERO SECTION
+# HERO
 st.markdown("## Find Your Dream Property in Indirapuram & Noida")
-st.button("📞 Call Now: 8447156101")
-
-st.write("---")
-
-# ABOUT
-st.markdown("## About Us")
-st.write("""
-Pathak Property is a trusted real estate service helping clients buy, sell, and rent properties in Indirapuram, Noida, and nearby areas.
-
-We provide verified listings and best deals.
-""")
 
 st.write("---")
 
@@ -45,29 +35,30 @@ with col3:
 
 st.write("---")
 
-# WHY CHOOSE US
-st.markdown("## Why Choose Us")
-st.write("""
-✔ Verified Properties  
-✔ Best Price Deals  
-✔ Local Expertise  
-✔ Fast Response  
-✔ Trusted Service  
-""")
-
-st.write("---")
-
-# CONTACT
-st.markdown("## Contact Us")
+# CONTACT FORM
+st.markdown("## 📞 Contact Us")
 
 name = st.text_input("Your Name")
 phone = st.text_input("Phone Number")
 msg = st.text_area("Requirement")
 
-if st.button("Submit"):
-    st.success("Thank you! We will contact you soon.")
+# WhatsApp Send Button
+if st.button("Send via WhatsApp"):
+
+    if name and phone and msg:
+        text = f"New Property Lead:%0AName: {name}%0APhone: {phone}%0ARequirement: {msg}"
+        
+        encoded_text = urllib.parse.quote(text)
+
+        whatsapp_url = f"https://wa.me/918447156101?text={encoded_text}"
+
+        st.success("Click below to send message on WhatsApp 👇")
+
+        st.markdown(f"[👉 Send Message Now]({whatsapp_url})")
+
+    else:
+        st.error("Please fill all details")
 
 st.write("---")
 
-st.markdown("📞 Contact: 8447156101")
 st.markdown("📍 Indirapuram | Noida | Ghaziabad")
